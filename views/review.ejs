@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizifyPDF | QUiz</title>
+    <link rel="shortcut icon" href="/asset/img/logo2.png" type="image/x-icon">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/quiz_platform_style.css">
+    <link rel="stylesheet" href="/css/review.css">
+
+<body>
+        <nav>
+            <img src="/asset/img/logo2.png" alt="logo" class="logo" height="500" width="500">
+            <menu class="navlist">
+              <li><a href="/">Introduction</a></li>
+              <li>
+                <div class="dropdown">Make a Quiz</div>
+              </li>
+              <div class="dropdown_content">
+                <div>
+                  <a href="/pdfToQuiz">
+                    <i class="fa-solid fa-file-pdf"></i>
+                    <p>Pdf To Quiz</p>
+                  </a>
+                </div>
+                <div>
+                  <a href="/promptToQuiz">
+                    <i class="fa-solid fa-file-image"></i>
+                    <p>Prompt To Quiz</p>
+                  </a>
+                </div>
+                <div>
+                  <a href="" class="under_process">
+                    <i class="fa-solid fa-file-video"></i>
+                    <p>Video To Quiz</p>
+                  </a>
+                </div>
+              </div>
+              <li class="active"><a href="">Your Quiz</a></li>
+            </menu>
+          </nav>
+          <header>
+    <div class="container" id="container">
+        <div class="question_list_container">
+            <div class="heading">Question List</div>
+            <div class="question_list">
+                <% answers.forEach((ans,index)=>{ %>
+                    <% if(ans==questions[index].answer) { %>
+                        <a href="/review?id=<%=id%>&r=<%=r%>&no=<%=index+1%>">
+                        <div data="correct" class="question_list_item"><%= index+1 %></div>
+                        </a>
+                    <% } else if(ans==4) { %>
+                        <a href="/review?id=<%=id%>&r=<%=r%>&no=<%=index+1%>">
+                            <div data="unanswered" class="question_list_item"><%= index+1 %></div>
+                        </a>
+                    <% } else{ %>
+                        <a href="/review?id=<%=id%>&r=<%=r%>&no=<%=index+1%>">
+                            <div data="wrong" class="question_list_item"><%= index+1 %></div>
+                        </a>
+                    <% } %>
+                <% }) %>
+            </div>
+            <div class="question_list_details">
+                <div class="answered">
+                    <div class="answered_color details_color"></div>
+                    <div class="details_text"> - Correct</div>
+                </div>
+                <div class="unanswered">
+                    <div class="wrong_color details_color"></div>
+                    <div class="details_text"> - Wrong</div>
+                </div>
+                <div class="active">
+                    <div class="unanswered_color details_color"></div>
+                    <div class="details_text"> - Not Answered</div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <form class="questions" method="post" action="result.html">
+                <div class="question_container">
+                    <div class="question">
+                        <div class="heading">Question <%= no  %> </div>
+                        <div class="question_text"><%= questions[no-1].question %></div>
+                    </div>
+                    <div class="option_container">      
+                        <% questions[no-1].options.forEach((option,index)=>{ %>
+                            <% if(index==questions[no-1].answer&&answers[no-1]==index){ %>
+                                <div class="option">
+                                    <input type="radio" name="answer" id="option_<%= index+1 %>" value="<%= index %>" data-set="correct" checked>
+                                    <label for="option_<%= index+1 %>" class="option_text"> <%= option %></label>
+                                </div>
+                            <% } else if(index==questions[no-1].answer){ %>
+                                <div class="option">
+                                    <input type="radio" name="answer" id="option_<%= index+1 %>" value="<%= index %>" data-set="correct">
+                                    <label for="option_<%= index+1 %>" class="option_text"> <%= option %></label>
+                                </div>
+                            <% } else if(answers[no-1]==index){ %>
+                                <div class="option">
+                                    <input type="radio" name="answer" id="option_<%= index+1 %>" value="<%= index %>" data-set="wrong" checked>
+                                    <label for="option_<%= index+1 %>" class="option_text"> <%= option %></label>
+                                </div>
+                            <% } else{ %>
+                                <div class="option">
+                                    <input type="radio" name="answer" id="option_3" value="2">
+                                    <label for="option_3" class="option_text"> <%= option %></label>
+                                </div>
+                            <% } %>
+                            
+                        <% }) %>       
+                                        
+                    </div>
+                </div>
+                <div class="button_container">
+                    <% if(no!=10){ %>
+                        <a href="/review?id=<%=id%>&r=<%=r%>&no=<%=no+1%>">
+                            <button class="button next" type="button" id="prev_button">Next</button>
+                        </a>
+                    <% } %>
+                    <% if(no!=1){ %>
+                        <a href="/review?id=<%=id%>&r=<%=r%>&no=<%=no-1%>">
+                            <button type="button">Go Back</button>
+                        </a>
+                    <% } %>
+                </div>
+                <div class="explanation">
+                    <h3>Explanation</h3>
+                    <p><%= questions[no-1].explanation %></p>
+                </div>
+            </form>
+                
+        </div>
+    </div>
+</body>
+
+</html>
