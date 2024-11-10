@@ -2,6 +2,10 @@
 
 Whizzify is a Web3 onchain game platform that transforms learning sessions into interactive quiz challenges. Designed for educational organizations, events, or live sessions, Whizzify uses AI and Arweave blockchain to automate quiz creation and reward distribution, making learning interactive and incentivizing participation.
 
+
+
+
+
 ![Screenshot 2024-07-14 082148](https://github.com/user-attachments/assets/1b696e22-50df-478d-9bdb-8252bdff58ef)
 
 ## Project Overview
